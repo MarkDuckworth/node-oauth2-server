@@ -267,6 +267,18 @@ The spec does not actually require that you revoke the old token - hence this is
          - Must contain the following keys (if object):
            - *string* **accessToken** OR **refreshToken** dependant on type
 
+#### getUserById (userId, callback)
+- Get a user by ID. If defined, this method is called during `oauth.authorise` after the
+  access token has been validated. This gives the middleware a chance to get fresh user
+  object, rather than using user data stored when the access token was created.
+- *string* **userId**
+- *function* **callback (error, user)**
+ - *mixed* **error**
+     - Truthy to indicate an error
+ - *object* **user**
+     - The user retrieved from storage or falsey to indicate an invalid user ID
+     - Saved in `req.user`
+
 ## Extension Grants
 You can support extension/custom grants by implementing the extendedGrant method as outlined above.
 Any grant type that is a valid URI will be passed to it for you to handle (as [defined in the spec](http://tools.ietf.org/html/rfc6749#section-4.5)).
